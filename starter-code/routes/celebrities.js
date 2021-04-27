@@ -53,4 +53,16 @@ router.get("/celebrities/:id/edit", (req, res) => {
     .catch(err => { console.log('error', err) })
 })
 
+router.post("/celebrities/:id", (req,res) => {
+  const { id } = req.params
+  const { name, occupation, catchPhrase} = req.body
+
+  Celebrity.findByIdAndUpdate(id, { name, occupation, catchPhrase}, {new: true})
+    .then(celebrity => {
+      console.log(`Updated ${celebrity}`)
+      res.redirect("/celebrities")
+    })
+    .catch(err => { console.log('error', err)})
+})
+
 module.exports = router;
